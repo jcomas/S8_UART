@@ -18,3 +18,9 @@ Download S8_UART library and copy extracted folder into **PlatformIO\Projects** 
 Go to **Documents\Arduino\libraries** and create the **S8_UART** directory. Download S8_UART library and copy the files of **src** folder into the new created folder.
 
 To test the examples, copy the folder of the example into **Documents\Arduino\Projects** folder, rename the **.cpp** file of the example to **.ino**. Open the .ino file and modify the parameters of **configuration section**. In the menu of IDE select your board and compile and upload the program.
+
+
+
+## Debug
+
+Modify **CORE_DEBUG_LEVEL** variable to **1** in platformio.ini file to show only errors (in console) and to **5** value for full messages.
