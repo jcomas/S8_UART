@@ -24,7 +24,7 @@
 #else
   #if defined(ARDUINO_ARCH_RP2040)
     REDIRECT_STDOUT_TO(Serial)    // to use printf (Serial.printf not supported)
-    UART S8_serial(S8_TX_PIN, S8_RX_PIN, 0, 0);
+    UART S8_serial(S8_TX_PIN, S8_RX_PIN, NC, NC);
   #else
     HardwareSerial S8_serial(S8_UART_PORT);   
   #endif
