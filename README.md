@@ -11,7 +11,7 @@ This library is for **Senseair S8 CO2** sensor to use with Arduino framework usi
 
 ### PlatformIO
 
-Download S8_UART library and copy extracted folder into **PlatformIO\Projects** folder. Open **Visual Studio Code** and select the directory of the project. Modify **platformio.ini** file according your board and requirements. Build and upload the example selected of platformio.ini file.
+Download S8_UART library and copy extracted folder into **PlatformIO\Projects** folder. Open **Visual Studio Code** and select the directory of the project. Modify **platformio.ini** file according your board and requirements. Open .cpp file of example and modify the parameters of **configuration section**. Build and upload the example selected of platformio.ini file.
 
 ### Arduino IDE
 
