@@ -1,7 +1,9 @@
+#include <stdint.h>
+
 /* ModBus CRC routine extracted from https://modbus.org/docs/Modbus_over_serial_line_V1_02.pdf */
 
 /* Table of CRC values for high–order byte */
-static unsigned char auchCRCHi[] = {
+static const uint8_t auchCRCHi[] = {
 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81,
 0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0,
 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01,
@@ -23,7 +25,7 @@ static unsigned char auchCRCHi[] = {
 } ;
 
 /* Table of CRC values for low–order byte */
-static char auchCRCLo[] = {
+static const uint8_t auchCRCLo[] = {
 0x00, 0xC0, 0xC1, 0x01, 0xC3, 0x03, 0x02, 0xC2, 0xC6, 0x06, 0x07, 0xC7, 0x05, 0xC5, 0xC4,
 0x04, 0xCC, 0x0C, 0x0D, 0xCD, 0x0F, 0xCF, 0xCE, 0x0E, 0x0A, 0xCA, 0xCB, 0x0B, 0xC9, 0x09,
 0x08, 0xC8, 0xD8, 0x18, 0x19, 0xD9, 0x1B, 0xDB, 0xDA, 0x1A, 0x1E, 0xDE, 0xDF, 0x1F, 0xDD,
@@ -45,14 +47,14 @@ static char auchCRCLo[] = {
 };
 
 /* The function returns the CRC as a unsigned short type */
-unsigned short modbus_CRC16 (unsigned char *puchMsg, unsigned short usDataLen ) {
+uint16_t modbus_CRC16 (uint8_t *puchMsg, uint16_t usDataLen ) {
 /*
     puchMsg  -> message to calculate CRC upon
     usDataLen -> quantity of bytes in message
 */
-    unsigned char uchCRCHi = 0xFF ;       /* high byte of CRC initialized */
-    unsigned char uchCRCLo = 0xFF ;       /* low byte of CRC initialized */
-    unsigned uIndex ;                     /* will index into CRC lookup table */
+    uint8_t uchCRCHi = 0xFF ;             /* high byte of CRC initialized */
+    uint8_t uchCRCLo = 0xFF ;             /* low byte of CRC initialized */
+    uint16_t uIndex ;                     /* will index into CRC lookup table */
 
     while (usDataLen--)                   /* pass through message buffer */
     {

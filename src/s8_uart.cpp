@@ -195,7 +195,7 @@ bool S8_UART::clear_acknowledgement() {
         LOG_DEBUG_INFO("Successful clearing acknowledgement flags");
 
     } else {
-        LOG_DEBUG_ERROR("Error clearing acknowledgement flags!");    
+        LOG_DEBUG_ERROR("Error clearing acknowledgement flags!");
     }
 
     return result;
@@ -205,13 +205,13 @@ bool S8_UART::clear_acknowledgement() {
 /* Start a manual calibration (go to outdoors, wait 5 minutes o more and then you issue this command) */
 bool S8_UART::manual_calibration() {
     bool result = clear_acknowledgement();
-    
+
     if (result) {
         send_special_command(S8_CO2_BACKGROUND_CALIBRATION);
 
         if (result) {
             LOG_DEBUG_INFO("Manual calibration in background has started");
-            
+
         } else {
             LOG_DEBUG_ERROR("Error starting manual calibration!");
         }
@@ -376,7 +376,7 @@ int32_t S8_UART::get_sensor_type_ID() {
     if (valid_response_len(MODBUS_FUNC_READ_INPUT_REGISTERS, nb, 7)) {
 
         // Save sensor type ID (high)
-        sensorType = ((buf_msg[4] << 16) & 0x00FF0000);
+        sensorType = (((int32_t)buf_msg[4] << 16) & 0x00FF0000);
 
         // Ask sensor type ID (low)
         send_cmd(MODBUS_FUNC_READ_INPUT_REGISTERS, MODBUS_IR27, 0x0001);
@@ -419,7 +419,7 @@ int32_t S8_UART::get_sensor_ID() {
     if (valid_response_len(MODBUS_FUNC_READ_INPUT_REGISTERS, nb, 7)) {
 
         // Save sensor ID (high)
-        sensorID = ((buf_msg[3] << 24) & 0xFF000000) | ((buf_msg[4] << 16) & 0x00FF0000);
+        sensorID = (((int32_t)buf_msg[3] << 24) & 0xFF000000) | (((int32_t)buf_msg[4] << 16) & 0x00FF0000);
 
         // Ask sensor ID (low)
         send_cmd(MODBUS_FUNC_READ_INPUT_REGISTERS, MODBUS_IR31, 0x0001);
@@ -477,6 +477,7 @@ bool S8_UART::valid_response_len(uint8_t func, uint8_t nb, uint8_t len) {
 
     if (nb == len) {
         result = valid_response(func, nb);
+
     } else {
         LOG_DEBUG_ERROR("Unexpected length!");
     }
@@ -538,7 +539,7 @@ void S8_UART::send_cmd( uint8_t func, uint16_t reg, uint16_t value) {
 /* Send bytes to sensor */
 void S8_UART::serial_write_bytes(uint8_t size) {
 
-    LOG_DEBUG_VERBOSE_PACKET("Bytes to send: ", (char *)buf_msg, size);
+    LOG_DEBUG_VERBOSE_PACKET("Bytes to send: ", (uint8_t *)buf_msg, size);
 
     mySerial->write(buf_msg, size);
     mySerial->flush();
@@ -546,10 +547,10 @@ void S8_UART::serial_write_bytes(uint8_t size) {
 
 
 /* Read answer of sensor */
-uint8_t S8_UART::serial_read_bytes(uint8_t max_bytes, unsigned long timeout_ms) {
+uint8_t S8_UART::serial_read_bytes(uint8_t max_bytes, uint32_t timeout_ms) {
 
-    unsigned long start_t = millis();
-    unsigned long end_t = start_t;
+    uint32_t start_t = millis();
+    uint32_t end_t = start_t;
     bool readed = false;
 
     uint8_t nb = 0;
@@ -565,7 +566,7 @@ uint8_t S8_UART::serial_read_bytes(uint8_t max_bytes, unsigned long timeout_ms) 
 
         if (readed) {
             if (nb > 0) {
-                LOG_DEBUG_VERBOSE_PACKET("Bytes received: ", (char *)buf_msg, nb);
+                LOG_DEBUG_VERBOSE_PACKET("Bytes received: ", (uint8_t *)buf_msg, nb);
 
             } else {
                 LOG_DEBUG_ERROR("Unexpected reading serial port!");

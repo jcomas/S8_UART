@@ -114,7 +114,7 @@
 
 
     struct S8_sensor {
-        char    firm_version[S8_LEN_FIRMVER + 1];
+        char firm_version[S8_LEN_FIRMVER + 1];
         int16_t co2;
         int16_t abc_period;
         int16_t ack;
@@ -147,8 +147,8 @@
             bool set_ABC_period(int16_t period);                                    // Set ABC period (4 - 4800 hours, 0 to disable)
 
             /* Manual calibration */
-            bool manual_calibration();                                              // Start a manual calibration (it clears acknowledgement flags and it calls to 
-                                                                                    // send_special_command with background calibration command) 
+            bool manual_calibration();                                              // Start a manual calibration (it clears acknowledgement flags and it calls to
+                                                                                    // send_special_command with background calibration command)
                                                                                     // (go to outdoors, wait 5 minutes o more and then you call this command)
 
             /* Bits information */
@@ -163,15 +163,14 @@
 
 
         private:
-            Stream* mySerial;                                                             // Communication serial with the sensor
+            Stream* mySerial;                                                             // Serial communication with the sensor
             uint8_t buf_msg[S8_LEN_BUF_MSG];                                              // Buffer for communication messages with the sensor
 
             void serial_write_bytes(uint8_t size);                                        // Send bytes to sensor
-            uint8_t serial_read_bytes(uint8_t max_bytes, unsigned long timeout_seconds);  // Read received bytes from sensor
+            uint8_t serial_read_bytes(uint8_t max_bytes, uint32_t timeout_seconds);  // Read received bytes from sensor
             bool valid_response(uint8_t func, uint8_t nb);                                // Check if response is valid according to sent command
             bool valid_response_len(uint8_t func, uint8_t nb, uint8_t len);               // Check if response is valid according to sent command and checking expected total length
             void send_cmd(uint8_t func, uint16_t reg, uint16_t value);                    // Send command
-
 
     };
 
