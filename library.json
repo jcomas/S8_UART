@@ -21,7 +21,8 @@
   "homepage": "https://github.com/jcomas/S8_UART",
   "frameworks": "arduino",
   "platforms": "*",
-  "examples": [
+  "examples":
+  [
     {
         "name": "Get CO2 value",
         "base": "examples/co2",
@@ -38,7 +39,7 @@
         "files": ["manual.cpp"]
     },
     {
-        "name": "Automatic calibration (ABC)",
+        "name": "ABC - Automatic calibration",
         "base": "examples/calibration/automatic",
         "files": ["automatic.cpp"]
     },
