@@ -207,7 +207,7 @@ bool S8_UART::manual_calibration() {
     bool result = clear_acknowledgement();
 
     if (result) {
-        send_special_command(S8_CO2_BACKGROUND_CALIBRATION);
+        result = send_special_command(S8_CO2_BACKGROUND_CALIBRATION);
 
         if (result) {
             LOG_DEBUG_INFO("Manual calibration in background has started");
