@@ -539,7 +539,7 @@ void S8_UART::send_cmd( uint8_t func, uint16_t reg, uint16_t value) {
 /* Send bytes to sensor */
 void S8_UART::serial_write_bytes(uint8_t size) {
 
-    LOG_DEBUG_VERBOSE_PACKET("Bytes to send: ", (uint8_t *)buf_msg, size);
+    LOG_DEBUG_VERBOSE_PACKET("Bytes to send: ", (char *)buf_msg, size);
 
     mySerial->write(buf_msg, size);
     mySerial->flush();
@@ -566,7 +566,7 @@ uint8_t S8_UART::serial_read_bytes(uint8_t max_bytes, uint32_t timeout_ms) {
 
         if (readed) {
             if (nb > 0) {
-                LOG_DEBUG_VERBOSE_PACKET("Bytes received: ", (uint8_t *)buf_msg, nb);
+                LOG_DEBUG_VERBOSE_PACKET("Bytes received: ", (char *)buf_msg, nb);
 
             } else {
                 LOG_DEBUG_ERROR("Unexpected reading serial port!");
