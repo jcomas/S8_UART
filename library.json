@@ -1,6 +1,6 @@
 {
   "name": "S8_UART",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Arduino library to control SenseAir S8 CO2 sensor using UART communication",
   "keywords": "co2, carbon dioxide, sensor, senseair, s8, air quality, environment, uart, serial",
   "repository":
